@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teste Mobile - Damian Painel</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f0f0f0;
+    }
+    .test-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .test-item {
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .success { color: green; }
+    .warning { color: orange; }
+    .error { color: red; }
+    .btn {
+      background: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 5px;
+    }
+    .btn:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="test-container">
+    <h1>📱 Teste de Responsividade - Damian Painel</h1>
+    
+    <div class="test-item">
+      <h3>✅ Viewport Configurado</h3>
+      <p>Meta tag viewport presente e configurada corretamente.</p>
+    </div>
+    
+    <div class="test-item">
+      <h3>📏 Breakpoints CSS</h3>
+      <p><strong>Desktop:</strong> > 900px</p>
+      <p><strong>Tablet:</strong> 768px - 900px</p>
+      <p><strong>Mobile:</strong> 480px - 768px</p>
+      <p><strong>Mobile Pequeno:</strong> < 480px</p>
+    </div>
+    
+    <div class="test-item">
+      <h3>🎯 Funcionalidades Mobile</h3>
+      <ul>
+        <li>✅ Menu lateral compacto (50-60px)</li>
+        <li>✅ Área de toque aumentada (44px mínimo)</li>
+        <li>✅ Fontes redimensionadas</li>
+        <li>✅ Espaçamentos otimizados</li>
+        <li>✅ Orientação landscape suportada</li>
+        <li>✅ Modo escuro mobile</li>
+      </ul>
+    </div>
+    
+    <div class="test-item">
+      <h3>🔧 Testes Recomendados</h3>
+      <ol>
+        <li>Abra o painel principal (index.html)</li>
+        <li>Teste em diferentes tamanhos de tela</li>
+        <li>Verifique a navegação no menu lateral</li>
+        <li>Teste adicionar/editar conteúdo</li>
+        <li>Teste o modo escuro</li>
+        <li>Teste em orientação landscape</li>
+      </ol>
+    </div>
+    
+    <div class="test-item">
+      <h3>📱 Como Testar no Celular</h3>
+      <ol>
+        <li>Suba os arquivos para um servidor web</li>
+        <li>Ou use um servidor local (localhost)</li>
+        <li>Acesse pelo navegador do celular</li>
+        <li>Teste todas as funcionalidades</li>
+      </ol>
+    </div>
+    
+    <div style="text-align: center; margin-top: 30px;">
+      <button class="btn" onclick="window.open('index.html', '_blank')">Abrir Painel Principal</button>
+      <button class="btn" onclick="window.close()">Fechar</button>
+    </div>
+    
+    <div style="margin-top: 20px; padding: 15px; background: #e9ecef; border-radius: 5px;">
+      <h4>💡 Dicas para Teste Mobile:</h4>
+      <ul>
+        <li>Use as ferramentas de desenvolvedor do navegador</li>
+        <li>Teste em diferentes dispositivos reais</li>
+        <li>Verifique a velocidade de carregamento</li>
+        <li>Teste com conexão lenta</li>
+        <li>Verifique a acessibilidade por toque</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html> 
