@@ -52,7 +52,6 @@ const sections = {
 };
 
 const mainContent = document.getElementById('main-content');
-const menuItems = document.querySelectorAll('.sidebar nav ul li');
 
 function renderSection(section) {
   mainContent.innerHTML = `<h1>${sections[section]}</h1><div class="section-content" id="section-${section}"></div>`;
@@ -533,16 +532,3 @@ function updateSyncStatus() {
 window.addEventListener('online', updateSyncStatus);
 window.addEventListener('offline', updateSyncStatus);
 updateSyncStatus();
-
-// Event listeners
-menuItems.forEach(item => {
-  item.addEventListener('click', () => {
-    menuItems.forEach(i => i.classList.remove('active'));
-    item.classList.add('active');
-    renderSection(item.dataset.section);
-  });
-});
-
-// Renderizar seção inicial
-renderSection('historia');
-menuItems[0].classList.add('active');

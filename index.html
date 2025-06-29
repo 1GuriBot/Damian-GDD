@@ -9,32 +9,82 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="debug-mode">
   <div id="sync-status" class="sync-status">Offline</div>
-  <aside class="sidebar">
-    <div class="logo">Damian: Ruin or Reign</div>
-    <nav>
+  
+  <!-- Botão de menu para mobile -->
+  <button id="menu-toggle" class="menu-toggle" title="Menu">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">Damian</div>
+      <div class="logo-subtitle">Ruin or Reign</div>
+      <button id="sidebar-toggle" class="sidebar-toggle" title="Minimizar/Maximizar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+    
+    <nav class="sidebar-nav">
       <ul>
-        <li data-section="historia">História Principal</li>
-        <li data-section="personagens">Personagens</li>
-        <li data-section="chefes">Chefes</li>
-        <li data-section="salas">Salas e Mapas</li>
-        <li data-section="habilidades">Árvore de Habilidades</li>
-        <li data-section="itens">Itens e Poderes</li>
-        <li data-section="lojas">Lojas e NPCs</li>
-        <li data-section="honra">Sistema de Honra</li>
-        <li data-section="tarefas">Tarefas de Desenvolvimento</li>
+        <li data-section="historia" title="História Principal">
+          <img src="assets/book-svgrepo-com.svg" alt="História" class="nav-icon">
+          <span class="nav-text">História Principal</span>
+        </li>
+        <li data-section="personagens" title="Personagens">
+          <img src="assets/boss-svgrepo-com.svg" alt="Personagens" class="nav-icon">
+          <span class="nav-text">Personagens</span>
+        </li>
+        <li data-section="chefes" title="Chefes">
+          <img src="assets/award-svgrepo-com.svg" alt="Chefes" class="nav-icon">
+          <span class="nav-text">Chefes</span>
+        </li>
+        <li data-section="salas" title="Salas e Mapas">
+          <img src="assets/maps-svgrepo-com.svg" alt="Mapas" class="nav-icon">
+          <span class="nav-text">Salas e Mapas</span>
+        </li>
+        <li data-section="habilidades" title="Árvore de Habilidades">
+          <img src="assets/tree-svgrepo-com.svg" alt="Habilidades" class="nav-icon">
+          <span class="nav-text">Árvore de Habilidades</span>
+        </li>
+        <li data-section="itens" title="Itens e Poderes">
+          <img src="assets/list-1-svgrepo-com.svg" alt="Itens" class="nav-icon">
+          <span class="nav-text">Itens e Poderes</span>
+        </li>
+        <li data-section="lojas" title="Lojas e NPCs">
+          <img src="assets/store-2-svgrepo-com.svg" alt="Lojas" class="nav-icon">
+          <span class="nav-text">Lojas e NPCs</span>
+        </li>
+        <li data-section="honra" title="Sistema de Honra">
+          <img src="assets/award-svgrepo-com.svg" alt="Honra" class="nav-icon">
+          <span class="nav-text">Sistema de Honra</span>
+        </li>
+        <li data-section="tarefas" title="Tarefas de Desenvolvimento">
+          <img src="assets/code-svgrepo-com.svg" alt="Tarefas" class="nav-icon">
+          <span class="nav-text">Tarefas de Desenvolvimento</span>
+        </li>
       </ul>
     </nav>
-    <button id="toggle-darkmode" title="Alternar modo escuro">🌙</button>
-    <button id="export-json" title="Exportar dados">⬇️</button>
-    <button id="import-json" title="Importar dados">⬆️</button>
-    <input type="file" id="import-file" accept="application/json" style="display:none;" />
+    
+    <div class="sidebar-footer">
+      <button id="toggle-darkmode" title="Alternar modo escuro">🌙</button>
+      <button id="export-json" title="Exportar dados">⬇️</button>
+      <button id="import-json" title="Importar dados">⬆️</button>
+      <input type="file" id="import-file" accept="application/json" style="display:none;" />
+    </div>
   </aside>
+  
   <main class="content" id="main-content">
     <!-- Conteúdo dinâmico será renderizado aqui -->
   </main>
+  
   <script src="js/main.js"></script>
   <script src="js/darkmode.js"></script>
+  <script src="js/sidebar.js"></script>
 </body>
 </html>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teste Botões - Damian Painel</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    /* Forçar exibição dos botões para teste */
+    .menu-toggle {
+      display: flex !important;
+    }
+    
+    .sidebar-toggle {
+      display: flex !important;
+      opacity: 1 !important;
+    }
+    
+    /* Reduzir largura para simular mobile */
+    body {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
+    /* Debug info */
+    .debug-info {
+      position: fixed;
+      top: 80px;
+      left: 20px;
+      background: rgba(0,0,0,0.8);
+      color: white;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      z-index: 2000;
+    }
+    
+    /* Botões de teste */
+    .test-buttons {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 10px;
+      z-index: 2000;
+    }
+    
+    .test-button {
+      background: #bfa046;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div id="sync-status" class="sync-status">Offline</div>
+  
+  <div class="debug-info">
+    <p>Largura da tela: <span id="screen-width"></span>px</p>
+    <p>É mobile: <span id="is-mobile"></span></p>
+    <p>Sidebar expandida: <span id="sidebar-expanded"></span></p>
+    <p>Menu toggle visível: <span id="menu-visible"></span></p>
+    <p>Sidebar toggle visível: <span id="sidebar-toggle-visible"></span></p>
+  </div>
+  
+  <div class="test-buttons">
+    <button class="test-button" onclick="toggleMenu()">Toggle Menu</button>
+    <button class="test-button" onclick="toggleSidebar()">Toggle Sidebar</button>
+    <button class="test-button" onclick="forceMobile()">Forçar Mobile</button>
+    <button class="test-button" onclick="forceDesktop()">Forçar Desktop</button>
+  </div>
+  
+  <!-- Botão de menu para mobile -->
+  <button id="menu-toggle" class="menu-toggle" title="Menu">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">Damian</div>
+      <div class="logo-subtitle">Ruin or Reign</div>
+      <button id="sidebar-toggle" class="sidebar-toggle" title="Minimizar/Maximizar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <ul>
+        <li data-section="historia" title="História Principal">
+          <img src="assets/book-svgrepo-com.svg" alt="História" class="nav-icon">
+          <span class="nav-text">História Principal</span>
+        </li>
+        <li data-section="personagens" title="Personagens">
+          <img src="assets/boss-svgrepo-com.svg" alt="Personagens" class="nav-icon">
+          <span class="nav-text">Personagens</span>
+        </li>
+        <li data-section="chefes" title="Chefes">
+          <img src="assets/award-svgrepo-com.svg" alt="Chefes" class="nav-icon">
+          <span class="nav-text">Chefes</span>
+        </li>
+        <li data-section="salas" title="Salas e Mapas">
+          <img src="assets/maps-svgrepo-com.svg" alt="Mapas" class="nav-icon">
+          <span class="nav-text">Salas e Mapas</span>
+        </li>
+        <li data-section="habilidades" title="Árvore de Habilidades">
+          <img src="assets/tree-svgrepo-com.svg" alt="Habilidades" class="nav-icon">
+          <span class="nav-text">Árvore de Habilidades</span>
+        </li>
+        <li data-section="itens" title="Itens e Poderes">
+          <img src="assets/list-1-svgrepo-com.svg" alt="Itens" class="nav-icon">
+          <span class="nav-text">Itens e Poderes</span>
+        </li>
+        <li data-section="lojas" title="Lojas e NPCs">
+          <img src="assets/store-2-svgrepo-com.svg" alt="Lojas" class="nav-icon">
+          <span class="nav-text">Lojas e NPCs</span>
+        </li>
+        <li data-section="honra" title="Sistema de Honra">
+          <img src="assets/award-svgrepo-com.svg" alt="Honra" class="nav-icon">
+          <span class="nav-text">Sistema de Honra</span>
+        </li>
+        <li data-section="tarefas" title="Tarefas de Desenvolvimento">
+          <img src="assets/code-svgrepo-com.svg" alt="Tarefas" class="nav-icon">
+          <span class="nav-text">Tarefas de Desenvolvimento</span>
+        </li>
+      </ul>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <button id="toggle-darkmode" title="Alternar modo escuro">🌙</button>
+      <button id="export-json" title="Exportar dados">⬇️</button>
+      <button id="import-json" title="Importar dados">⬆️</button>
+      <input type="file" id="import-file" accept="application/json" style="display:none;" />
+    </div>
+  </aside>
+  
+  <main class="content" id="main-content">
+    <h1>Teste dos Botões</h1>
+    <div class="section-content">
+      <div class="card">
+        <h3>🔍 Problemas Identificados:</h3>
+        <ul>
+          <li>❌ Botão para estender não aparece</li>
+          <li>❌ Botão de minimizar não está correto</li>
+        </ul>
+        
+        <h3>✅ Botões de Teste:</h3>
+        <ul>
+          <li>🔘 <strong>Toggle Menu</strong>: Força o clique no botão de menu</li>
+          <li>🔘 <strong>Toggle Sidebar</strong>: Força o clique no botão da sidebar</li>
+          <li>📱 <strong>Forçar Mobile</strong>: Simula tela mobile</li>
+          <li>🖥️ <strong>Forçar Desktop</strong>: Simula tela desktop</li>
+        </ul>
+        
+        <h3>🎯 O que testar:</h3>
+        <ul>
+          <li>📱 <strong>Botão de Menu</strong>: Deve estar no canto superior esquerdo</li>
+          <li>🔄 <strong>Botão de Toggle</strong>: Deve estar no canto superior direito da sidebar</li>
+          <li>📚 <strong>Ícone da História</strong>: Deve ser visível (não bloco preto)</li>
+          <li>⚡ <strong>Funcionalidade</strong>: Clique nos botões para testar</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+  
+  <script>
+    let sidebarController;
+    
+    // Debug info
+    function updateDebugInfo() {
+      document.getElementById('screen-width').textContent = window.innerWidth;
+      document.getElementById('is-mobile').textContent = window.innerWidth <= 768;
+      document.getElementById('sidebar-expanded').textContent = document.getElementById('sidebar').classList.contains('expanded');
+      document.getElementById('menu-visible').textContent = document.getElementById('menu-toggle').style.display !== 'none';
+      document.getElementById('sidebar-toggle-visible').textContent = document.getElementById('sidebar-toggle').style.display !== 'none';
+    }
+    
+    // Funções de teste
+    function toggleMenu() {
+      console.log('Forçando clique no menu');
+      document.getElementById('menu-toggle').click();
+    }
+    
+    function toggleSidebar() {
+      console.log('Forçando clique no sidebar toggle');
+      document.getElementById('sidebar-toggle').click();
+    }
+    
+    function forceMobile() {
+      console.log('Forçando modo mobile');
+      Object.defineProperty(window, 'innerWidth', {
+        writable: true,
+        configurable: true,
+        value: 500
+      });
+      window.dispatchEvent(new Event('resize'));
+    }
+    
+    function forceDesktop() {
+      console.log('Forçando modo desktop');
+      Object.defineProperty(window, 'innerWidth', {
+        writable: true,
+        configurable: true,
+        value: 1200
+      });
+      window.dispatchEvent(new Event('resize'));
+    }
+    
+    // Controle da barra lateral expansível
+    class SidebarController {
+      constructor() {
+        this.sidebar = document.getElementById('sidebar');
+        this.menuToggle = document.getElementById('menu-toggle');
+        this.sidebarToggle = document.getElementById('sidebar-toggle');
+        this.isExpanded = false;
+        this.isMobile = window.innerWidth <= 768;
+        
+        this.init();
+      }
+      
+      init() {
+        // Adicionar event listeners
+        this.menuToggle.addEventListener('click', () => {
+          console.log('Menu toggle clicked!');
+          this.toggleSidebar();
+        });
+        
+        this.sidebarToggle.addEventListener('click', () => {
+          console.log('Sidebar toggle clicked!');
+          this.toggleSidebar();
+        });
+        
+        // Detectar mudanças de tamanho da tela
+        window.addEventListener('resize', () => {
+          this.handleResize();
+          updateDebugInfo();
+        });
+        
+        // Inicializar estado baseado no tamanho da tela
+        this.handleResize();
+        
+        // Adicionar event listeners para os itens de navegação
+        this.setupNavigation();
+        
+        // Atualizar debug info
+        updateDebugInfo();
+      }
+      
+      handleResize() {
+        const wasMobile = this.isMobile;
+        this.isMobile = window.innerWidth <= 768;
+        
+        console.log('Resize detected:', { wasMobile, isMobile: this.isMobile, width: window.innerWidth });
+        
+        // Se mudou de desktop para mobile ou vice-versa
+        if (wasMobile !== this.isMobile) {
+          if (this.isMobile) {
+            this.collapseSidebar();
+          } else {
+            this.expandSidebar();
+          }
+        }
+        
+        // No desktop, sempre expandir automaticamente se não estiver minimizada
+        if (!this.isMobile && !this.isExpanded) {
+          this.expandSidebar();
+        }
+      }
+      
+      toggleSidebar() {
+        if (this.isExpanded) {
+          this.collapseSidebar();
+        } else {
+          this.expandSidebar();
+        }
+        updateDebugInfo();
+      }
+      
+      expandSidebar() {
+        console.log('Expanding sidebar');
+        this.sidebar.classList.add('expanded');
+        this.isExpanded = true;
+        
+        // Em mobile, adicionar overlay
+        if (this.isMobile) {
+          this.addOverlay();
+        }
+      }
+      
+      collapseSidebar() {
+        console.log('Collapsing sidebar');
+        this.sidebar.classList.remove('expanded');
+        this.isExpanded = false;
+        
+        // Em mobile, remover overlay
+        if (this.isMobile) {
+          this.removeOverlay();
+        }
+      }
+      
+      addOverlay() {
+        if (!document.getElementById('sidebar-overlay')) {
+          const overlay = document.createElement('div');
+          overlay.id = 'sidebar-overlay';
+          overlay.className = 'sidebar-overlay';
+          overlay.addEventListener('click', () => this.collapseSidebar());
+          document.body.appendChild(overlay);
+        }
+      }
+      
+      removeOverlay() {
+        const overlay = document.getElementById('sidebar-overlay');
+        if (overlay) {
+          overlay.remove();
+        }
+      }
+      
+      setupNavigation() {
+        const navItems = document.querySelectorAll('.sidebar-nav li');
+        
+        navItems.forEach(item => {
+          item.addEventListener('click', (e) => {
+            // Remover classe active de todos os itens
+            navItems.forEach(nav => nav.classList.remove('active'));
+            
+            // Adicionar classe active ao item clicado
+            item.classList.add('active');
+            
+            // Em mobile, fechar a sidebar após clicar
+            if (this.isMobile) {
+              this.collapseSidebar();
+            }
+            
+            // Mostrar qual seção foi clicada
+            const section = item.getAttribute('data-section');
+            const mainContent = document.getElementById('main-content');
+            mainContent.innerHTML = `
+              <h1>${item.getAttribute('title')}</h1>
+              <div class="section-content">
+                <div class="card">
+                  <h3>Seção: ${section}</h3>
+                  <p>Esta é a seção "${item.getAttribute('title')}"</p>
+                  <p>Clique em outros itens da barra lateral para navegar.</p>
+                </div>
+              </div>
+            `;
+          });
+        });
+        
+        // Ativar o primeiro item por padrão
+        if (navItems.length > 0) {
+          navItems[0].classList.add('active');
+        }
+      }
+    }
+
+    // Inicializar quando o DOM estiver carregado
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('DOM loaded, initializing SidebarController');
+      sidebarController = new SidebarController();
+    });
+  </script>
+</body>
+</html> 

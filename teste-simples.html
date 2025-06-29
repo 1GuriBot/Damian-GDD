@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teste Simples - Botões</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Forçar exibição dos botões */
+    .menu-toggle {
+      display: flex !important;
+    }
+    
+    .sidebar-toggle {
+      display: flex !important;
+      opacity: 1 !important;
+    }
+    
+    /* Reduzir largura para simular mobile */
+    body {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    /* Info de debug */
+    .debug {
+      position: fixed;
+      top: 80px;
+      left: 20px;
+      background: rgba(0,0,0,0.8);
+      color: white;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      z-index: 2000;
+    }
+  </style>
+</head>
+<body>
+  <div class="debug">
+    <p>Largura: <span id="width"></span>px</p>
+    <p>Mobile: <span id="mobile"></span></p>
+    <p>Expandida: <span id="expanded"></span></p>
+  </div>
+  
+  <!-- Botão de menu para mobile -->
+  <button id="menu-toggle" class="menu-toggle" title="Menu">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">Damian</div>
+      <div class="logo-subtitle">Ruin or Reign</div>
+      <button id="sidebar-toggle" class="sidebar-toggle" title="Minimizar/Maximizar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <ul>
+        <li data-section="historia" title="História Principal">
+          <img src="assets/book-svgrepo-com.svg" alt="História" class="nav-icon">
+          <span class="nav-text">História Principal</span>
+        </li>
+        <li data-section="personagens" title="Personagens">
+          <img src="assets/boss-svgrepo-com.svg" alt="Personagens" class="nav-icon">
+          <span class="nav-text">Personagens</span>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+  
+  <main class="content">
+    <h1>Teste dos Botões</h1>
+    <div class="section-content">
+      <div class="card">
+        <h3>🎯 Teste os botões:</h3>
+        <ul>
+          <li>📱 <strong>Botão de Menu</strong>: Canto superior esquerdo (hambúrguer)</li>
+          <li>🔄 <strong>Botão de Toggle</strong>: Canto superior direito da sidebar (seta)</li>
+        </ul>
+        
+        <h3>🔍 Problemas reportados:</h3>
+        <ul>
+          <li>❌ Botão para estender não aparece</li>
+          <li>❌ Botão de minimizar não está correto</li>
+        </ul>
+        
+        <h3>✅ Soluções aplicadas:</h3>
+        <ul>
+          <li>✅ Aumentei o tamanho do botão de toggle (40x40px)</li>
+          <li>✅ Aumentei o ícone do botão (20x20px)</li>
+          <li>✅ Opacidade sempre visível (opacity: 1)</li>
+          <li>✅ Forçando exibição dos botões no teste</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+  
+  <script>
+    // Debug info
+    function updateDebug() {
+      document.getElementById('width').textContent = window.innerWidth;
+      document.getElementById('mobile').textContent = window.innerWidth <= 768;
+      document.getElementById('expanded').textContent = document.getElementById('sidebar').classList.contains('expanded');
+    }
+    
+    // Controle da sidebar
+    class SimpleSidebarController {
+      constructor() {
+        this.sidebar = document.getElementById('sidebar');
+        this.menuToggle = document.getElementById('menu-toggle');
+        this.sidebarToggle = document.getElementById('sidebar-toggle');
+        this.isExpanded = false;
+        this.isMobile = window.innerWidth <= 768;
+        
+        this.init();
+      }
+      
+      init() {
+        console.log('Inicializando SidebarController');
+        
+        // Event listeners
+        this.menuToggle.addEventListener('click', () => {
+          console.log('Menu toggle clicked!');
+          this.toggleSidebar();
+        });
+        
+        this.sidebarToggle.addEventListener('click', () => {
+          console.log('Sidebar toggle clicked!');
+          this.toggleSidebar();
+        });
+        
+        // Resize handler
+        window.addEventListener('resize', () => {
+          this.handleResize();
+          updateDebug();
+        });
+        
+        // Initial state
+        this.handleResize();
+        updateDebug();
+      }
+      
+      handleResize() {
+        const wasMobile = this.isMobile;
+        this.isMobile = window.innerWidth <= 768;
+        
+        console.log('Resize:', { wasMobile, isMobile: this.isMobile, width: window.innerWidth });
+        
+        if (wasMobile !== this.isMobile) {
+          if (this.isMobile) {
+            this.collapseSidebar();
+          } else {
+            this.expandSidebar();
+          }
+        }
+        
+        if (!this.isMobile && !this.isExpanded) {
+          this.expandSidebar();
+        }
+      }
+      
+      toggleSidebar() {
+        console.log('Toggle sidebar, current state:', this.isExpanded);
+        if (this.isExpanded) {
+          this.collapseSidebar();
+        } else {
+          this.expandSidebar();
+        }
+        updateDebug();
+      }
+      
+      expandSidebar() {
+        console.log('Expanding sidebar');
+        this.sidebar.classList.add('expanded');
+        this.isExpanded = true;
+        
+        if (this.isMobile) {
+          this.addOverlay();
+        }
+      }
+      
+      collapseSidebar() {
+        console.log('Collapsing sidebar');
+        this.sidebar.classList.remove('expanded');
+        this.isExpanded = false;
+        
+        if (this.isMobile) {
+          this.removeOverlay();
+        }
+      }
+      
+      addOverlay() {
+        if (!document.getElementById('sidebar-overlay')) {
+          const overlay = document.createElement('div');
+          overlay.id = 'sidebar-overlay';
+          overlay.className = 'sidebar-overlay';
+          overlay.addEventListener('click', () => this.collapseSidebar());
+          document.body.appendChild(overlay);
+        }
+      }
+      
+      removeOverlay() {
+        const overlay = document.getElementById('sidebar-overlay');
+        if (overlay) {
+          overlay.remove();
+        }
+      }
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('DOM loaded');
+      new SimpleSidebarController();
+    });
+  </script>
+</body>
+</html> 
